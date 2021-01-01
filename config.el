@@ -32,11 +32,6 @@
 (setq org-directory "~/orgnzr/")
 (setq org-roam-directory "~/orgnzr/memex")
 (setq org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
-(after! org
-  (add-to-list 'org-capture-templates
-               '(("t" "Todo [IN]" entry (file "~/orgnzr/in.org"))
-                ("i" "Idea" entry (file "~/orgnzr/memex/ideas.org"))
-                ("T" "Thought" entry (file "~/orgnzr/memex/thoughts.org")))))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -58,3 +53,13 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; ORG configuration
+(after! org
+  (setq org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)")))
+  (add-to-list 'org-capture-templates
+             '("c" "Capture in Inbox" entry (file "~/orgnzr/in.org") "* TODO %?\n" :prepend t :kill-buffer t))
+  (add-to-list 'org-capture-templates
+             '("t" "New Thought" entry (file "~/orgnzr/memex/thoughts.org") "* %?\n" :prepend t :kill-buffer t))
+  (add-to-list 'org-capture-templates
+             '("i" "New Idea" entry (file "~/orgnzr/memex/ideas.org") "* %?\n" :prepend t :kill-buffer t)))
