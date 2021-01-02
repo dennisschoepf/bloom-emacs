@@ -58,8 +58,23 @@
 (after! org
   (setq org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (add-to-list 'org-capture-templates
-             '("c" "Capture in Inbox" entry (file "~/orgnzr/in.org") "* TODO %?\n" :prepend t :kill-buffer t))
+               '("c" "Capture in Inbox" entry (file "~/orgnzr/in.org") "* TODO %?\n" :prepend t :kill-buffer t))
   (add-to-list 'org-capture-templates
-             '("t" "New Thought" entry (file "~/orgnzr/memex/thoughts.org") "* %?\n" :prepend t :kill-buffer t))
+               '("t" "New Thought" entry (file "~/orgnzr/memex/thoughts.org") "* %?\n" :prepend t :kill-buffer t))
   (add-to-list 'org-capture-templates
-             '("i" "New Idea" entry (file "~/orgnzr/memex/ideas.org") "* %?\n" :prepend t :kill-buffer t)))
+               '("i" "New Idea" entry (file "~/orgnzr/memex/ideas.org") "* %?\n" :prepend t :kill-buffer t))
+  (with-eval-after-load 'ox-latex (add-to-list 'org-latex-classes '("uni-submission"
+                                    "\\documentclass[a4paper, 11pt]{article}
+                                     \\usepackage{graphicx}
+                                     \\usepackage[margin=2.5cm]{geometry}
+                                     \\usepackage[utf8]{inputenc}
+                                     \\usepackage{hyperref}
+                                     [NO-DEFAULT-PACKAGES]
+                                     [NO-PACKAGES]
+                                     [EXTRA]"
+                                    ("\\section{%s}" . "\\section*{%s}")
+                                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+                                    ))))
