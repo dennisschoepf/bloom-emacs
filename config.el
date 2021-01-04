@@ -29,8 +29,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/orgnzr/")
-(setq org-roam-directory "~/orgnzr/memex")
+(setq org-directory "~/Dropbox/orgnzr/")
+(setq org-roam-directory "~/Dropbox/memex")
 (setq org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -56,13 +56,18 @@
 
 ;; ORG configuration
 (after! org
+  (setq org-agenda-files (list
+                        "~/Dropbox/orgnzr/in.org"
+                        "~/Dropbox/orgnzr/_work.org"
+                        "~/Dropbox/orgnzr/_university.org"
+                        "~/Dropbox/orgnzr/_personal.org"))
   (setq org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (add-to-list 'org-capture-templates
-               '("c" "Capture in Inbox" entry (file "~/orgnzr/in.org") "* TODO %?\n" :prepend t :kill-buffer t))
+               '("c" "Capture in Inbox" entry (file "~/Dropbox/orgnzr/in.org") "* TODO %?\n" :prepend t :kill-buffer t))
   (add-to-list 'org-capture-templates
-               '("t" "New Thought" entry (file "~/orgnzr/memex/thoughts.org") "* %?\n" :prepend t :kill-buffer t))
+               '("t" "New Thought" entry (file "~/Dropbox/orgnzr/thoughts.org") "* %?\n" :prepend t :kill-buffer t))
   (add-to-list 'org-capture-templates
-               '("i" "New Idea" entry (file "~/orgnzr/memex/ideas.org") "* %?\n" :prepend t :kill-buffer t))
+               '("i" "New Idea" entry (file "~/Dropbox/orgnzr/ideas.org") "* %?\n" :prepend t :kill-buffer t))
   (with-eval-after-load 'ox-latex (add-to-list 'org-latex-classes '("uni-submission"
                                     "\\documentclass[a4paper, 11pt]{article}
                                      \\usepackage{graphicx}
@@ -81,3 +86,18 @@
 (use-package! org-ref
   :config
   (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")))
+
+(use-package org-roam-server
+  :ensure t
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8080
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))

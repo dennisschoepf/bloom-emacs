@@ -50,3 +50,4 @@
 ;(unpin! t)
 (package! almost-mono-themes)
 (package! org-ref)
+(package! org-roam-server)
