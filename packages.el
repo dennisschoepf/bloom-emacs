@@ -51,3 +51,6 @@
 (package! almost-mono-themes)
 (package! org-ref)
 (package! org-roam-server)
+(package! writeroom-mode)
+(package! js-import)
+(package! prettier)

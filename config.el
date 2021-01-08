@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-nord)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -57,10 +57,10 @@
 ;; ORG configuration
 (after! org
   (setq org-agenda-files (list
-                        "~/Dropbox/orgnzr/in.org"
-                        "~/Dropbox/orgnzr/_work.org"
-                        "~/Dropbox/orgnzr/_university.org"
-                        "~/Dropbox/orgnzr/_personal.org"))
+                          "~/Dropbox/orgnzr/in.org"
+                          "~/Dropbox/orgnzr/_work.org"
+                          "~/Dropbox/orgnzr/_university.org"
+                          "~/Dropbox/orgnzr/_personal.org"))
   (setq org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (add-to-list 'org-capture-templates
                '("c" "Capture in Inbox" entry (file "~/Dropbox/orgnzr/in.org") "* TODO %?\n" :prepend t :kill-buffer t))
@@ -69,7 +69,7 @@
   (add-to-list 'org-capture-templates
                '("i" "New Idea" entry (file "~/Dropbox/orgnzr/ideas.org") "* %?\n" :prepend t :kill-buffer t))
   (with-eval-after-load 'ox-latex (add-to-list 'org-latex-classes '("uni-submission"
-                                    "\\documentclass[a4paper, 11pt]{article}
+                                                                    "\\documentclass[a4paper, 11pt]{article}
                                      \\usepackage{graphicx}
                                      \\usepackage[margin=2.5cm]{geometry}
                                      \\usepackage[utf8]{inputenc}
@@ -77,12 +77,12 @@
                                      [NO-DEFAULT-PACKAGES]
                                      [NO-PACKAGES]
                                      [EXTRA]"
-                                    ("\\section{%s}" . "\\section*{%s}")
-                                    ("\\subsection{%s}" . "\\subsection*{%s}")
-                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-                                    ))))
+                                                                    ("\\section{%s}" . "\\section*{%s}")
+                                                                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                                                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+                                                                    ))))
 (use-package! org-ref
   :config
   (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")))
@@ -101,3 +101,24 @@
         org-roam-server-network-label-truncate t
         org-roam-server-network-label-truncate-length 60
         org-roam-server-network-label-wrap-length 20))
+
+;; Programming setup
+(setq typescript-indent-level 2)
+(setq js-indent-level 2)
+(setq js2-indent-level 2)
+(setq javascript-indent-level 2)
+(setq js2-basic-offset 2)
+(setq web-mode-markup-indent-offset 2)
+(setq indent-tabs-mode nil)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+(setq react-indent-level 2)
+(setq web-mode-script-padding 2)
+
+;; Disable Typescript formatting as it uses tsfmt
+(setq-hook! 'typescript-mode-hook +format-with-lsp nil)
+(setq-hook! 'typescript-tsx-mode-hook +format-with-lsp nil)
+
+;; Use prettier where possible
+(add-hook 'after-init-hook #'global-prettier-mode)
